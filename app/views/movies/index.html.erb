@@ -1,0 +1,34 @@
+<div class="container">
+
+  <h1>Movies index</h1>
+
+  <%= form_tag movies_path, method: :get do %>
+    <%= text_field_tag :query,
+      params[:query],
+      class: "form-control",
+      placeholder: "Find a movie or TV series"
+    %>
+  <% end %>
+
+  <div class="row">
+    <div class="col-sm-8 col-sm-offset-2">
+      <div id="movies">
+        <% @movies_and_series.each do |result| %>
+          <% if result.searchable_type == 'Movie'  %>
+            <% movie = result.searchable %>
+            <h6>Movie</h6>
+            <h4><%= movie.title %></h4>
+            <p><%= movie.syllabus %></p>
+            <p>Directed by <%= movie.director.first_name %> <%= movie.director.last_name %></p>
+          <% elsif result.searchable_type == 'Serie' %>
+            <% serie = result.searchable %>
+            <h6>TV Series</h6>
+            <h4><%= serie.title %></h4>
+            <p><%= serie.syllabus %></p>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+</div>
